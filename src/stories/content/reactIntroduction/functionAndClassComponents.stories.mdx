@@ -1,0 +1,82 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+
+import SimpleComponent from '../../../components/reactIntroduction/SimpleComponent';
+import ClassComponent from '../../../components/reactIntroduction/ClassComponent';
+
+<Meta title="Contents/React Introduction/Function and Class Components" />
+
+# Function and Class Components
+
+There are two main ways of defining components in Reac, using a function or defining a class that extends from React.Component.
+
+## Function Component
+
+As the name suggests, a function component is a `JavaScript` function, this function receives as parameter a `props` object that
+contains `{key:value}` pairs with information passed from outside the component. 
+
+The function also returns a root React Element that can contain `n` children React Elements. These elements are a description of how the Component UI should look like.
+
+The main difference with a Class Component is that we have easy access to a `local state` managed by the component and to the lifecycle methods. We'll dig deeper into these subjects later.
+
+```jsx
+import React from 'react';
+
+function SimpleComponent(props) {
+    return (
+        <div>
+            <h1>Hello there!</h1>
+            <p>I'm a simple ReactJS Component that renders a title with a paragraph.</p>
+        </div>
+    );
+}
+
+export default SimpleComponent;
+```
+
+
+<Preview>
+  <Story name="Functional Component">
+    <SimpleComponent />
+  </Story>
+</Preview>
+
+
+## Class Components
+
+A class component is a little more complex than a function component in the sense that it requires a bit more of code in order to be defined.
+
+In this case we will have an ES6+ Class that will extend from the `React.Component` object. Additional to that, there will be a `render()` class function, 
+this function unlike the one from `Funtion Components` doesn't receive any parameters, but it does return a React Element.
+
+
+```jsx
+import React, { Component } from 'react';
+import styled from 'styled-components';
+
+const Container = styled.div`
+  border: 1px solid #333;
+  background-color: #666;
+  padding: 2em;
+`;
+
+const Title = styled.h1`
+  color: #1EA7FD;
+  font-weight: bold;
+`;
+
+export default class ClassComponent extends Component {
+  render() {
+    return (
+      <Container>
+        <Title>I'm a Class Component</Title>
+      </Container>
+    );
+  }
+}
+```
+
+<Preview>
+  <Story name="Class Component">
+    <ClassComponent/>
+  </Story>
+</Preview>

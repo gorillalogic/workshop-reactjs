@@ -1,0 +1,86 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+
+import UsersListComponent from '../../../components/inDepth/UsersListComponent';
+
+<Meta title="Contents/In Depth/Conditional rendering and events handling" />
+
+# Conditional rendering and events handling
+
+Knowing how we can access pops and state can help us to easily re-use components and persist some information at a component level, but just with that 
+we can't do much if we need to react to external changes or trigger actions based on user interaction.
+
+In this section we will learn how we can display different content based on props/state and how we can trigger events based on actions like clicking a button.
+
+## Conditional Render
+
+
+Let's define a user list component with a local state:
+
+```jsx
+class UsersListComponent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      users: null,
+      isLoading: false
+    };
+  }
+...
+
+}
+
+```
+Nothing new so far, right? 
+
+---
+
+Now let's say we want this component to display a default message when the list of users from the local state is empty, and
+iterate throught the actual list when there is data available so we can display all the users, **how do we do that?** 
+
+Since JSX lets us use markup with plain JavaScript, we can make use of the conditional structures we already now from JS (if/else, ternary operators, loops, etc... ).
+
+Let's see how this looks like: 
+
+``` jsx
+  ...
+  render() {
+    let content;
+
+    if (this.state.users) {
+      content = (
+        <List>
+          {this.state.users.map(user => (
+            <Item key={user.id}>{`${user.name} ${user.lastName}`}</Item>
+          ))}
+        </List>
+      );
+    } else {
+      content = (
+        <Fragment>
+          <p>No users to be displayed! Please click the button to refresh!</p>
+          <button onClick={this.loadUsers}>Refresh users!</button>
+        </Fragment>
+      );
+    }
+
+    return (
+      <div>
+        <h1>Users List</h1>
+        {this.state.isLoading ? <span>Loading data!</span> : content}
+        {this.state.hasErrors && (<Error>Upps, something went wrong while loading the data!</Error>)}
+      </div>
+    );
+  }
+}
+...
+
+```
+
+
+## Event handling
+
+<Preview>
+  <Story name="Conditional Rendering">
+    <UsersListComponent />
+  </Story>
+</Preview>

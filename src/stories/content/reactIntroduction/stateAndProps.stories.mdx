@@ -1,0 +1,154 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+
+import SimpleComponent from '../../../components/reactIntroduction/SimpleComponent';
+import AvatarComponent from '../../../components/reactIntroduction/AvatarComponent';
+import SimpleFormWithState from '../../../components/reactIntroduction/SimpleFormWithState';
+import * as Logo from '../../../../public/logo192.png';
+
+<Meta title="Contents/React Introduction/State and Props" />
+
+# State and Props
+
+We know how to define a simple component that renders hardcoded content, but what's next???
+
+Rendering static content is not so useful for create interactive and reusable components, remember the `props` and `state` we previously mentioned?
+Now is time to put them some use.
+
+## Props
+
+Props are values passed from outside of the component, they allow the component to render in the UI elements based on these `parameters` and re-use the component over and over again, the same way we do when we create a normal JavaScript function.
+
+One important thing to keep in mind 
+
+<details>
+  <summary>Click to expand/collapse the componet's source code</summary>
+
+<p>
+
+```jsx
+import React from 'react';
+import styled from 'styled-components';
+
+const AvatarWrapper = styled.div`
+  ...
+`;
+
+const Image = styled.img`
+  ...
+`;
+
+const HorizontalRule = styled.hr`
+  ...
+`;
+
+function AvatarComponent(props) {
+    return (
+        <AvatarWrapper>
+            <Image src={props.profilePicture} alt={props.fullName} />
+            <HorizontalRule/>
+            <span>{props.fullName}</span>
+        </AvatarWrapper>
+    );
+}
+
+export default AvatarComponent;
+```
+</p>
+
+</details>
+
+<Preview>
+  <Story name="Props">
+    <AvatarComponent profilePicture={Logo} fullName="Fancy Avatar"/>
+  </Story>
+</Preview>
+
+## State
+
+<details>
+  <summary>Click to expand/collapse the componet's source code</summary>
+
+<p>
+
+```jsx
+
+...
+
+const Form = styled.form`
+...
+`;
+
+
+const Label = styled.label`
+...
+`;
+
+const Input = styled.input`
+...
+`;
+
+const Button = styled.button`
+...
+`;
+
+export default class SimpleFormWithState extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      lastName: '',
+      age: ''
+    };
+  }
+
+  handleChange = ({ target }) => {
+    this.setState({[target.name]: target.value});
+  }
+
+  submitForm = async (event) => {
+    event.preventDefault();
+    console.log('Current State: ',this.state)
+    const response = await fetch(`${BASE_URL}/people`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(this.state)
+    });
+
+    const result = await response.json();
+    console.log('API Response: ', result);
+  };
+
+  render() {
+    return (
+      <Form onSubmit={this.submitForm} >
+        <Label>Name: 
+          <Input name="name" value={this.state.name} onChange={this.handleChange}/> 
+        </Label>
+        <Label>Last Name: 
+          <Input name="lastName" value={this.state.lastName} onChange={this.handleChange}/> 
+        </Label>
+        <Label>Age: 
+          <Input name="age" value={this.state.age} type="number" onChange={this.handleChange}/> 
+        </Label>
+        <Button type="submit">
+          Add person
+        </Button>
+      </Form>
+    );
+  }
+}
+
+```
+</p>
+
+</details>
+
+
+<Preview>
+  <Story name="State">
+      <SimpleFormWithState />
+  </Story>
+</Preview>

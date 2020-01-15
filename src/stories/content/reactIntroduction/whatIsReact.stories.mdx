@@ -1,0 +1,78 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+
+import SimpleComponent from '../../../components/reactIntroduction/SimpleComponent';
+import NestedComponent from '../../../components/reactIntroduction/NestedComponent';
+
+<Meta title="Contents/React Introduction/What is ReactJS" />
+
+# What is ReactJS
+
+ReactJS is a declarative JavaScript library for building User Interfaces based in components.  
+
+We can think of a component as a function that receives parameters (props) and returns a set of elements that describe how the component should look like.
+
+## Simple ReactJS component
+
+The code bellow shows how a simple ReactJS component looks like:
+
+```jsx
+import React from 'react';
+
+function SimpleComponent(props) {
+    return (
+        <div>
+            <h1>Hello there!</h1>
+            <p>I'm a simple ReactJS Component that renders a title with a paragraph.</p>
+        </div>
+    );
+}
+
+export default SimpleComponent;
+```
+
+<Preview>
+  <Story name="Simple Component">
+    <SimpleComponent />
+  </Story>
+</Preview>
+
+
+## Nested Component
+
+```jsx
+...
+const Container = styled.div`
+  border: 1px solid #333;
+  border-radius: 5px;
+  background-color: #249;
+  color: white;
+  padding: 2em;
+`;
+
+const ChildrenWrapper = styled.div`
+  border: 1px solid white;
+  border-radius: 5px;
+  background-color: white;
+  color: black;
+  padding: 1em;
+`;
+
+function NestedComponent(props) {
+  return (
+    <Container>
+      <h1>I'm the parent component!</h1>
+      <ChildrenWrapper>{props.children}</ChildrenWrapper>
+    </Container>
+  );
+}
+
+...
+```
+
+<Preview>
+  <Story name="Nested Component">
+    <NestedComponent>
+      <SimpleComponent/>
+    </NestedComponent>
+  </Story>
+</Preview>

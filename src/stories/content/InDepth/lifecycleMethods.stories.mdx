@@ -1,0 +1,41 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+
+import SimpleComponent from '../../../components/reactIntroduction/SimpleComponent';
+import ClassComponent from '../../../components/reactIntroduction/ClassComponent';
+
+<Meta title="Contents/In Depth/Lifecycle Methods" />
+
+# Lifecycle Methods
+
+There are two main ways of defining components in Reac, using a function or defining a class that extends from React.Component.
+
+## Function Component
+
+As the name suggests, a function component is a `JavaScript` function, this function receives as parameter a `props` object that
+contains `{key:value}` pairs with information passed from outside the component. 
+
+The function also returns a root React Element that can contain `n` children React Elements. These elements are a description of how the Component UI should look like.
+
+The main difference with a Class Component is that we have easy access to a `local state` managed by the component and to the lifecycle methods. We'll dig deeper into these subjects later.
+
+```jsx
+import React from 'react';
+
+function SimpleComponent(props) {
+    return (
+        <div>
+            <h1>Hello there!</h1>
+            <p>I'm a simple ReactJS Component that renders a title with a paragraph.</p>
+        </div>
+    );
+}
+
+export default SimpleComponent;
+```
+
+
+<Preview>
+  <Story name="Lifecycle Methods">
+    <SimpleComponent />
+  </Story>
+</Preview>
